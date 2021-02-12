@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;LanderSTM/Core/Src/Pressure_Retrieve&apos; to &apos;Pressure_Retrieve.c&apos;" description="Rename resource &apos;Pressure_Retrieve&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/Pressure_Retrieve" name="Pressure_Retrieve.c" stamp="1613143852167" updateReferences="true"/>
+</session>

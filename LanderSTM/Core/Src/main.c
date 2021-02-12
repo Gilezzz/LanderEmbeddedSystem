@@ -650,6 +650,7 @@ void altitude(void *argument)
 {
   /* USER CODE BEGIN altitude */
   /* Infinite loop */
+	// TODO
   for(;;)
   {
     osDelay(1);
