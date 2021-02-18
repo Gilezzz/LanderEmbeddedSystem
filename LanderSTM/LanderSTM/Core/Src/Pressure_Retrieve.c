@@ -10,11 +10,15 @@
 
 LPS22HH_Object_t *pPressObj;  // Create instance of the LPS22HH_Object_t object
 
+
+/* Functions ------------------------------------------------------------------*/
+
+
 /**
  * @brief  Get the LPS22HH temperature sensor output data rate
- * @param  pObj the device pObj
+ * @param  Mode FIFO operating mode
  * @param  Odr pointer where the output data rate is written
- * @retval 0 in case of success, an error code otherwise
+ * @retval Nothing, yet...
  */
 void Initialise_Press(uint8_t Mode, float Odr)	{
 	/*
@@ -39,3 +43,5 @@ void Initialise_Press(uint8_t Mode, float Odr)	{
 	LPS22HH_PRESS_SetOutputDataRate(*pPressObj, Odr);  // Set the output data rate
 
 }
+
+

@@ -1,0 +1,37 @@
+/*
+ * Attitude_Retrieve.c
+ *
+ *  Created on: 18 Feb 2021
+ *      Author: alexh
+ */
+
+
+/* Includes ------------------------------------------------------------------*/
+#include "lsm6dsr.h"
+
+
+/* Functions -----------------------------------------------------------------*/
+
+
+/**
+ * @brief  Get the LPS22HH temperature sensor output data rate
+ * @param  pObj the device pObj
+ * @param  Odr pointer where the output data rate is written
+ * @retval 0 in case of success, an error code otherwise
+ */
+void Initialise_Attitude(uint8_t Mode, float Odr)	{
+	/*
+	 * Enable drdy
+	 */
+	//uint8_t Mode = 1;  // Mode for the FIFO
+	//float Odr = 9600;  // The output data rate
+
+//	LPS22HH_Initialize(LPS22HH_Object_t *pObj); // is this needed?
+	LPS22HH_Init(*pPressObj);  // Initialise the sensor
+	LPS22HH_PRESS_Enable(*pPressObj);  // Enable the pressure sensor
+	LPS22HH_TEMP_Disable(*pPressObj);  // Disable the temperature sensor
+	LPS22HH_Enable_DRDY_Interrupt(*pPressObj);  // Enable the DRDY Interrupt
+	LPS22HH_FIFO_Set_Mode(*pPressObj, Mode);  // Set the FIFO mode
+	LPS22HH_PRESS_SetOutputDataRate(*pPressObj, Odr);  // Set the output data rate
+
+}
