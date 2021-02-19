@@ -9,10 +9,10 @@
   * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software component is licensed by ST under Ultimate Liberty license
+  * SLA0044, the "License"; You may not use this file except in compliance with
+  * the License. You may obtain a copy of the License at:
+  *                             www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -33,21 +33,11 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
-//This redirects printf to uart 2
-PUTCHAR_PROTOTYPE
-{
-  /* Place your implementation of fputc here */
-  /* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
-  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
-
-  return ch;
-}
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -149,6 +139,7 @@ void control(void *argument);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -649,8 +640,13 @@ void stateUpdate(void *argument)
 void altitude(void *argument)
 {
   /* USER CODE BEGIN altitude */
+	/*
+	 * 1: get pressure
+	 * 2: subtract ground pressure
+	 * 3: convert to altitude
+	 * 4:
+	 */
   /* Infinite loop */
-	// TODO
   for(;;)
   {
     osDelay(1);
