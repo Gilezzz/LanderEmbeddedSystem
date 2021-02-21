@@ -64,10 +64,12 @@ void Update_ACC_GYRO(LSM6DSR_Axes_t *pAcceleration, LSM6DSR_Axes_t *pAngularRate
 }
 
 
+
+/* ----------------- Accelerometer -------------------------------------------------------------------*/
 /**
  * @brief  Read the x acceleration stored at the pAcceleration struct
  * @param  pAcceleration pointer to a LSM6DSR_Axes_t struct containing the acceleration in the three axes
- * @retval x the acceleration in the x direction
+ * @retval x, the acceleration in the x direction
  */
 int32_t Read_ACC_x(LSM6DSR_Axes_t *pAcceleration)	{
 	return pAcceleration->x;
@@ -77,7 +79,7 @@ int32_t Read_ACC_x(LSM6DSR_Axes_t *pAcceleration)	{
 /**
  * @brief  Read the y acceleration stored at the pAcceleration struct
  * @param  pAcceleration pointer to a LSM6DSR_Axes_t struct containing the acceleration in the three axes
- * @retval x the acceleration in the x direction
+ * @retval y, the acceleration in the y direction
  */
 int32_t Read_ACC_y(LSM6DSR_Axes_t *pAcceleration)	{
 	return pAcceleration->y;
@@ -87,9 +89,38 @@ int32_t Read_ACC_y(LSM6DSR_Axes_t *pAcceleration)	{
 /**
  * @brief  Read the z acceleration stored at the pAcceleration struct
  * @param  pAcceleration pointer to a LSM6DSR_Axes_t struct containing the acceleration in the three axes
- * @retval x the acceleration in the x direction
+ * @retval z, the acceleration in the z direction
  */
 int32_t Read_ACC_z(LSM6DSR_Axes_t *pAcceleration)	{
 	return pAcceleration->z;
 }
 
+
+
+/* ----------------- GYRO ----------------------------------------------------------------------------*/
+/**
+ * @brief  Read the rotation about the x axis from the pAngularRate struct
+ * @param  pAngularRate pointer to a LSM6DSR_Axes_t struct containing the rotation rate of the three axes
+ * @retval x, the rotation about the x axis
+ */
+int32_t Read_GYRO_x(LSM6DSR_Axes_t *pAngularRate)	{
+	return pAngularRate->x;
+}
+
+/**
+ * @brief  Read the rotation about the y axis from the pAngularRate struct
+ * @param  pAngularRate pointer to a LSM6DSR_Axes_t struct containing the rotation rate of the three axes
+ * @retval y, the rotation about the y axis
+ */
+int32_t Read_GYRO_y(LSM6DSR_Axes_t *pAngularRate)	{
+	return pAngularRate->y;
+}
+
+/**
+ * @brief  Read the rotation about the z axis from the pAngularRate struct
+ * @param  pAngularRate pointer to a LSM6DSR_Axes_t struct containing the rotation rate of the three axes
+ * @retval z, the rotation about the z axis
+ */
+int32_t Read_GYRO_z(LSM6DSR_Axes_t *pAngularRate)	{
+	return pAngularRate->z;
+}
