@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "stm32f405xx.h": "c",
+        "lps22hh.h": "c"
+    }
+}

@@ -9,5 +9,7 @@
 #define INC_PRESSURE_RETRIEVE_H_
 
 
+void Initialise_Press(float Odr, float *pPressure_Ground_loc);
+
 
 #endif /* INC_PRESSURE_RETRIEVE_H_ */
