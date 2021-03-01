@@ -25,7 +25,7 @@ const uint8_t Watermark = 2;					//Number of data pieces in FIFO before int trig
 const float Odr = 200;							//Output data rate
 const uint8_t FIFO_Mode = LPS22HH_STREAM_MODE;  // LPS22HH_STREAM_MODE, continuous
 float Pressure_Ground_loc;  					// Decalre ground pressure value
-
+float currentAlt;								//The altitude as estimated using double exponential smoothing (externally visible)
 
 /* ---------------------------------------------------------------------------*/
 /* Functions -----------------------------------------------------------------*/
@@ -110,19 +110,19 @@ void Initialise_Press(void)	{
 	LPS22HH_PRESS_Enable(pPressObj);  // Enable the pressure sensor
 	LPS22HH_PRESS_GetPressure(pPressObj, pPressure_Ground_loc); // RECORD ground value of pressure.
 	Pressure_Ground_loc = *pPressure_Ground_loc;
+
+	currentAlt = 0;		// Initialises altitude value
 }
 
 
 /**
  * @brief  Get the pressure at the current location, do some maths using the ground pressure to find the current altitude
- * @param  pPressure_loc pointer where the current pressure value will be written
- * @param  pPressure_Ground_loc pointer where the ground pressure is stored. This was done during the Initialise_Press
  * @retval Nothing, yet...
  */
-void Calc_Altitude(float *pPressure_loc)	{
+float Calc_Altitude(void)	{
 	//TODO will need to ignore pressure value in smoother if this func fails
 	//TODO check for multiples of pressure data
-	float *ptemp;
+	float *ptemp, *pPressure_loc;
 	/* Write the pressure at the current time to pPressure_loc, ptemp is discarded but needs to be collected to empty fifo step */
 	LPS22HH_FIFO_Get_Data(pPressObj,  pPressure_loc, ptemp);
 	/* By using the value of pressure recorded during the initiali(se function we can calulate the current altutude */
@@ -130,4 +130,22 @@ void Calc_Altitude(float *pPressure_loc)	{
 }
 
 
-//TODO Add altitude smoothing function (double exponential smoothing)
+
+/**
+ * @brief  Updates the global pressure variable (declared in header) using sensor data using double exponential smoothing
+ */
+void Update_DES(void) {
+	const float alpha = 0.03;
+  	const float gamma = 0.01;
+	static float intercept = 0;	
+  	float newAlt = -1;
+
+  	newAlt = Calc_Altitude();
+
+	if (newAlt != -1)	{
+		float prevEst = currentAlt;
+		currentAlt = (alpha*newAlt)+((1-alpha)*(prevEst+intercept));      //Predicted next pressure in hPa (100Pa)
+		intercept = gamma*(currentAlt-prevEst)+((1-gamma)*intercept);
+	}
+}
+
