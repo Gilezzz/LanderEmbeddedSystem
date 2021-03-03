@@ -123,8 +123,10 @@ float Calc_Altitude(void)	{
 	//TODO will need to ignore pressure value in smoother if this func fails
 	//TODO check for multiples of pressure data
 	float *ptemp, *pPressure_loc;
+
 	/* Write the pressure at the current time to pPressure_loc, ptemp is discarded but needs to be collected to empty fifo step */
 	LPS22HH_FIFO_Get_Data(pPressObj,  pPressure_loc, ptemp);
+
 	/* By using the value of pressure recorded during the initiali(se function we can calulate the current altutude */
 	return (Pressure_Ground_loc - *pPressure_loc)/(1.225*9.81);  // TODO: use temp to calculate density
 }
@@ -144,7 +146,7 @@ void Update_DES(void) {
 
 	if (newAlt != -1)	{
 		float prevEst = currentAlt;
-		currentAlt = (alpha*newAlt)+((1-alpha)*(prevEst+intercept));      //Predicted next pressure in hPa (100Pa)
+		currentAlt = (alpha*newAlt)+((1-alpha)*(prevEst+intercept));	// Predicted next pressure in hPa (100Pa)
 		intercept = gamma*(currentAlt-prevEst)+((1-gamma)*intercept);
 	}
 }
