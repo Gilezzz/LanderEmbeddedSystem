@@ -70,7 +70,7 @@ typedef struct
   uint8_t             is_initialized;
   uint8_t             press_is_enabled;
   uint8_t             temp_is_enabled;
-  lps22hh_odr_t       last_odr;  // output data rates
+  lps22hh_odr_t       last_odr;
 } LPS22HH_Object_t;
 
 typedef struct
