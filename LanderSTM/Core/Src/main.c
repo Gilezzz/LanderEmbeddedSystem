@@ -20,6 +20,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "Pressure_Retrieve.h"
+#include "Attitude_Retrieve.h"
+
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -32,6 +35,15 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+enum State 
+{ 
+  SAFE, 
+  READY_TO_FLY, 
+  READY_TO_DROP, 
+}; 
+
+enum State my_State = SAFE;  // Initialise the state of the lander.
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -218,6 +230,10 @@ int main(void)
   /* add events, ... */
   /* USER CODE END RTOS_EVENTS */
 
+  /* Initialise the sensors*/
+  Initialise_Press();
+  Initialise_Attitude();
+
   /* Start scheduler */
   osKernelStart();
 
@@ -227,7 +243,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -627,6 +642,22 @@ void stateUpdate(void *argument)
   /* Infinite loop */
   for(;;)
   {
+    switch(my_State){
+      case SAFE :
+        // Wait for instruction from radio communication to change to READY_TO_FLY
+
+      case READY_TO_FLY :
+        /*
+        * If the current altitude is greater than the drop altitude change state to READY_TO_DROP
+        * If communication from radio says to change state to safe then change state
+        */
+      case READY_TO_DROP :
+        /*
+        * If communication from radio says to change state to safe then change state
+        */
+    }
+
+    
     osDelay(1);
   }
   /* USER CODE END 5 */
@@ -651,7 +682,8 @@ void altitude(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    Update_Alt_DES();
+    //osDelay(1);
   }
   /* USER CODE END altitude */
 }
@@ -705,7 +737,8 @@ void attitude(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    Update_Att_DES();
+    //osDelay(1);
   }
   /* USER CODE END attitude */
 }
