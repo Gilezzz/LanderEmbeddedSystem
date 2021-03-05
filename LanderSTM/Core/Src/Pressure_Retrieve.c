@@ -17,20 +17,26 @@
 #include "string.h"
 
 
+
+/*-------------------------------------------------------------------------------*/
+/* Declarations ------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------*/
+
 LPS22HH_Object_t *pPressObj;  // Create instance of the LPS22HH_Object_t object TODO
 LPS22HH_IO_t *pPressIO;		  //IO object used in populating pPressOBj
 
 
-const uint8_t Watermark = 2;					//Number of data pieces in FIFO before int triggered
-const float Odr = 200;							//Output data rate
+const uint8_t Watermark = 2;					// Number of data pieces in FIFO before int triggered
+const float Odr = 200;							// Output data rate
 const uint8_t FIFO_Mode = LPS22HH_STREAM_MODE;  // LPS22HH_STREAM_MODE, continuous
 float Pressure_Ground_loc;  					// Decalre ground pressure value
-float currentAlt;								//The altitude as estimated using double exponential smoothing (externally visible)
+float currentAlt;								// The altitude as estimated using double exponential smoothing (externally visible)
+
+
 
 /* ---------------------------------------------------------------------------*/
 /* Functions -----------------------------------------------------------------*/
 /* ---------------------------------------------------------------------------*/
-
 
 
 /**
@@ -94,7 +100,7 @@ void Initialise_Press(void)	{
 
 	pPressIO->Init = &BSP_SPI1_Init;
 	pPressIO->DeInit = &BSP_SPI1_DeInit;
-	pPressIO->BusType = LPS22HH_SPI_4WIRES_BUS;	//Spi 4 wire
+	pPressIO->BusType = LPS22HH_SPI_4WIRES_BUS;  // Spi 4 wire
 	pPressIO->Address = NULL;
 	pPressIO->WriteReg = &press_device_write;
 	pPressIO->ReadReg = &press_device_read;
@@ -136,7 +142,7 @@ float Calc_Altitude(void)	{
 /**
  * @brief  Updates the global pressure variable (declared in header) using sensor data using double exponential smoothing
  */
-void Update_DES(void) {
+void Update_Alt_DES(void) {
 	const float alpha = 0.03;
   	const float gamma = 0.01;
 	static float intercept = 0;	

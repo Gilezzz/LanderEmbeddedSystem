@@ -1,0 +1,5 @@
+	pPressIO->Address = NULL;  // I2C address.
+
+	LPS22HH_FIFO_Set_Watermark_Level(pPressObj, Watermark);  // It means the DRDY is activated every two pieces of data in the fifo buffer
+	LPS22HH_FIFO_Get_Data(pPressObj,  pPressure_loc, ptemp);  // Each slot in FIFO has pressure and temp
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);  // GPIO bus C (GPIOC) and pin 4. For IMU, Bus A pin 4

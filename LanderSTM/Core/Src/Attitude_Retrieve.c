@@ -134,12 +134,27 @@ void Update_Att_DES(void) {
 	static float intercept = 0;	
   	float newAlt = -1;
 
-  	newAlt = Read_ACC_x();
+  	Update_GYRO();
+	currentACC_x = pAcceleration->x;
+	currentACC_y = pAcceleration->y;
+	currentACC_z = pAcceleration->z;
 
 	if (newAlt != -1)	{
 		float prevEst = currentACC_x;
 		currentACC_x = (alpha*newAlt)+((1-alpha)*(prevEst+intercept));	// Predicted next pressure in hPa (100Pa)
 		intercept = gamma*(currentACC_x-prevEst)+((1-gamma)*intercept);
+	}
+
+	if (newAlt != -1)	{
+		float prevEst = currentACC_y;
+		currentACC_y = (alpha*newAlt)+((1-alpha)*(prevEst+intercept));	// Predicted next pressure in hPa (100Pa)
+		intercept = gamma*(currentACC_y-prevEst)+((1-gamma)*intercept);
+	}
+
+	if (newAlt != -1)	{
+		float prevEst = currentACC_z;
+		currentACC_z = (alpha*newAlt)+((1-alpha)*(prevEst+intercept));	// Predicted next pressure in hPa (100Pa)
+		intercept = gamma*(currentACC_z-prevEst)+((1-gamma)*intercept);
 	}
 }
 
