@@ -81,8 +81,6 @@ static int32_t press_device_write(void *handle, uint8_t reg, uint8_t* pData, uin
 
 /**
  * @brief  Initialise the LPS22HH device by setting DRDY, FIFO mode, obtaining ground pressure, pressure enable, and Odr
- * @param  Odr the output data rate value to be set
- * @param  pPressure_Ground_loc pointer where the ground pressure is stored
  * @retval Nothing, yet...
  */
 void Initialise_Press(void)	{
