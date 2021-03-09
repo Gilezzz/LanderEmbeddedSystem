@@ -121,7 +121,7 @@ void Initialise_Press(void)	{
 
 /**
  * @brief  Get the pressure at the current location, do some maths using the ground pressure to find the current altitude
- * @retval Nothing, yet...
+ * @retval The altitude [m]
  */
 float Calc_Altitude(void)	{
 	//TODO will need to ignore pressure value in smoother if this func fails
