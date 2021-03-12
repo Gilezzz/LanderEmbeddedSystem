@@ -27,9 +27,9 @@ const uint8_t FIFO_Mode = 6;	// LSM6DSR_STREAM_MODE
 const uint8_t Watermark = 2;	// Number of data pieces in FIFO before int triggered
 const float Odr = 200;
 
-float currentACC_x;				// The acceleration as estimated using double exponential smoothing (externally visible)
-float currentACC_y;				// The acceleration as estimated using double exponential smoothing (externally visible)
-float currentACC_z;				// The acceleration as estimated using double exponential smoothing (externally visible)
+extern float currentACC_x;			// The acceleration as estimated using double exponential smoothing (externally visible)
+extern float currentACC_y;			// The acceleration as estimated using double exponential smoothing (externally visible)
+extern float currentACC_z;			// The acceleration as estimated using double exponential smoothing (externally visible)
 
 
 

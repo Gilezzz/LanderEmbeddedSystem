@@ -17,25 +17,27 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
-/* Includes ------------------------------------------------------------------*/
+
+
+/* USER CODE BEGIN Includes */
+/* ---------------------------------------------------------------------------*/
+/* --------------------- Private Includes ------------------------------------*/
+/* ---------------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
 #include "Pressure_Retrieve.h"
 #include "Attitude_Retrieve.h"
-
-
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
 
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
 
+/* USER CODE BEGIN PTD */
+/* Private typedef -----------------------------------------------------------*/
 /* USER CODE END PTD */
 
-/* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+/* ---------------------------------------------------------------------------*/
+/* ----------------------- Private define ------------------------------------*/
+/* ---------------------------------------------------------------------------*/
 enum State 
 { 
   SAFE, 
@@ -44,14 +46,23 @@ enum State
 }; 
 
 enum State my_State = SAFE;  // Initialise the state of the lander.
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
 /* USER CODE END PD */
 
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
 
+
+/* USER CODE BEGIN PM */
+/* Private macro -------------------------------------------------------------*/
 /* USER CODE END PM */
 
-/* Private variables ---------------------------------------------------------*/
+
+
+/* USER CODE BEGIN PV */
+/* ---------------------------------------------------------------------------*/
+/* ----------------------- Private variables ---------------------------------*/
+/* ---------------------------------------------------------------------------*/
 CRC_HandleTypeDef hcrc;
 
 RTC_HandleTypeDef hrtc;
@@ -112,11 +123,17 @@ const osThreadAttr_t controlTask_attributes = {
   .priority = (osPriority_t) osPriorityRealtime1,
   .stack_size = 128 * 4
 };
-/* USER CODE BEGIN PV */
-
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
 /* USER CODE END PV */
 
-/* Private function prototypes -----------------------------------------------*/
+
+
+/* USER CODE BEGIN PFP */
+/* ---------------------------------------------------------------------------*/
+/* ------------------- Private function prototypes ---------------------------*/
+/* ---------------------------------------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_CRC_Init(void);
@@ -133,15 +150,18 @@ void recordTransmit(void *argument);
 void attitude(void *argument);
 void ignitionTask(void *argument);
 void control(void *argument);
-
-/* USER CODE BEGIN PFP */
-
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------*/
 /* USER CODE END PFP */
 
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
 
+
+/* USER CODE BEGIN 0 */
+/* Private user code ---------------------------------------------------------*/
 /* USER CODE END 0 */
+
+
 
 /**
   * @brief  The application entry point.
@@ -150,24 +170,18 @@ void control(void *argument);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  /* MCU Configuration--------------------------------------------------------*/
   /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
 
+
+  /* USER CODE BEGIN Init */
+  /* -------------------------------------------------------------------------- */
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
   /* Configure the system clock */
   SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
@@ -178,28 +192,43 @@ int main(void)
   MX_TIM4_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
-  /* USER CODE BEGIN 2 */
-  /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
+  /* -------------------------------------------------------------------------- */
+  /* USER CODE END Init */
+
+
+  /* USER CODE BEGIN SysInit */
+  /* USER CODE END SysInit */
+
+
+  /* USER CODE BEGIN 2 */
+  /* USER CODE END 2 */
+
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
+
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
+
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
+
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* -------------------------------------------------------------------------- */
   /* Create the thread(s) */
   /* creation of stateUDTask */
   stateUDTaskHandle = osThreadNew(stateUpdate, NULL, &stateUDTask_attributes);
@@ -220,22 +249,25 @@ int main(void)
   igntionCTaskHandle = osThreadNew(ignitionTask, NULL, &igntionCTask_attributes);
 
   /* creation of controlTask */
-  controlTaskHandle = osThreadNew(control, NULL, &controlTask_attributes);
-
-  /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+  controlTaskHandle = osThreadNew(control, NULL, &controlTask_attributes);  
+  /* -------------------------------------------------------------------------- */
   /* USER CODE END RTOS_THREADS */
+
 
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
+  // TODO : Create an event which triggers when a radio instruction is received
   /* USER CODE END RTOS_EVENTS */
+
 
   /* Initialise the sensors*/
   Initialise_Press();
   Initialise_Attitude();
 
+
   /* Start scheduler */
   osKernelStart();
+
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -247,6 +279,8 @@ int main(void)
   }
   /* USER CODE END 3 */
 }
+
+
 
 /**
   * @brief System Clock Configuration
@@ -299,6 +333,8 @@ void SystemClock_Config(void)
   }
 }
 
+
+
 /**
   * @brief CRC Initialization Function
   * @param None
@@ -308,22 +344,23 @@ static void MX_CRC_Init(void)
 {
 
   /* USER CODE BEGIN CRC_Init 0 */
-
   /* USER CODE END CRC_Init 0 */
 
   /* USER CODE BEGIN CRC_Init 1 */
-
   /* USER CODE END CRC_Init 1 */
+
   hcrc.Instance = CRC;
   if (HAL_CRC_Init(&hcrc) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN CRC_Init 2 */
 
+  /* USER CODE BEGIN CRC_Init 2 */
   /* USER CODE END CRC_Init 2 */
 
 }
+
+
 
 /**
   * @brief RTC Initialization Function
@@ -334,12 +371,11 @@ static void MX_RTC_Init(void)
 {
 
   /* USER CODE BEGIN RTC_Init 0 */
-
   /* USER CODE END RTC_Init 0 */
 
   /* USER CODE BEGIN RTC_Init 1 */
-
   /* USER CODE END RTC_Init 1 */
+
   /** Initialize RTC Only
   */
   hrtc.Instance = RTC;
@@ -353,11 +389,13 @@ static void MX_RTC_Init(void)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN RTC_Init 2 */
 
+  /* USER CODE BEGIN RTC_Init 2 */
   /* USER CODE END RTC_Init 2 */
 
 }
+
+
 
 /**
   * @brief TIM3 Initialization Function
@@ -368,15 +406,14 @@ static void MX_TIM3_Init(void)
 {
 
   /* USER CODE BEGIN TIM3_Init 0 */
-
   /* USER CODE END TIM3_Init 0 */
 
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
 
   /* USER CODE BEGIN TIM3_Init 1 */
-
   /* USER CODE END TIM3_Init 1 */
+
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 0;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
@@ -413,12 +450,15 @@ static void MX_TIM3_Init(void)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM3_Init 2 */
 
+  /* USER CODE BEGIN TIM3_Init 2 */
   /* USER CODE END TIM3_Init 2 */
   HAL_TIM_MspPostInit(&htim3);
 
 }
+
+
+
 
 /**
   * @brief TIM4 Initialization Function
@@ -429,14 +469,12 @@ static void MX_TIM4_Init(void)
 {
 
   /* USER CODE BEGIN TIM4_Init 0 */
-
   /* USER CODE END TIM4_Init 0 */
 
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
 
   /* USER CODE BEGIN TIM4_Init 1 */
-
   /* USER CODE END TIM4_Init 1 */
   htim4.Instance = TIM4;
   htim4.Init.Prescaler = 0;
@@ -466,12 +504,15 @@ static void MX_TIM4_Init(void)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM4_Init 2 */
 
+  /* USER CODE BEGIN TIM4_Init 2 */
   /* USER CODE END TIM4_Init 2 */
   HAL_TIM_MspPostInit(&htim4);
 
 }
+
+
+
 
 /**
   * @brief USART1 Initialization Function
@@ -482,12 +523,9 @@ static void MX_USART1_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART1_Init 0 */
-
   /* USER CODE END USART1_Init 0 */
 
   /* USER CODE BEGIN USART1_Init 1 */
-
-  /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
   huart1.Init.BaudRate = 115200;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
@@ -500,11 +538,15 @@ static void MX_USART1_UART_Init(void)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN USART1_Init 2 */
+  /* USER CODE END USART1_Init 1 */
 
+  /* USER CODE BEGIN USART1_Init 2 */
   /* USER CODE END USART1_Init 2 */
 
 }
+
+
+
 
 /**
   * @brief USART2 Initialization Function
@@ -515,12 +557,12 @@ static void MX_USART2_UART_Init(void)
 {
 
   /* USER CODE BEGIN USART2_Init 0 */
-
   /* USER CODE END USART2_Init 0 */
 
   /* USER CODE BEGIN USART2_Init 1 */
-
   /* USER CODE END USART2_Init 1 */
+
+  /* USER CODE BEGIN USART2_Init 2 */
   huart2.Instance = USART2;
   huart2.Init.BaudRate = 115200;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
@@ -533,11 +575,12 @@ static void MX_USART2_UART_Init(void)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN USART2_Init 2 */
-
   /* USER CODE END USART2_Init 2 */
 
 }
+
+
+
 
 /**
   * @brief USART3 Initialization Function
@@ -571,6 +614,10 @@ static void MX_USART3_UART_Init(void)
   /* USER CODE END USART3_Init 2 */
 
 }
+
+
+
+
 
 /**
   * @brief GPIO Initialization Function
@@ -625,9 +672,12 @@ static void MX_GPIO_Init(void)
 
 }
 
-/* USER CODE BEGIN 4 */
 
+
+/* USER CODE BEGIN 4 */
 /* USER CODE END 4 */
+
+
 
 /* USER CODE BEGIN Header_stateUpdate */
 /**
@@ -638,30 +688,28 @@ static void MX_GPIO_Init(void)
 /* USER CODE END Header_stateUpdate */
 void stateUpdate(void *argument)
 {
-  /* USER CODE BEGIN 5 */
-  /* Infinite loop */
-  for(;;)
-  {
-    switch(my_State){
-      case SAFE :
-        // Wait for instruction from radio communication to change to READY_TO_FLY
+/* USER CODE BEGIN 5 */
+/* Infinite loop */
+  switch(my_State){
+    case SAFE :
+      // Wait for instruction from radio communication to change to READY_TO_FLY
 
-      case READY_TO_FLY :
-        /*
-        * If the current altitude is greater than the drop altitude change state to READY_TO_DROP
-        * If communication from radio says to change state to safe then change state
-        */
-      case READY_TO_DROP :
-        /*
-        * If communication from radio says to change state to safe then change state
-        */
-    }
-
-    
+    case READY_TO_FLY :
+      /*
+      * If the current altitude is greater than the drop altitude change state to READY_TO_DROP
+      * If communication from radio says to change state to safe then change state
+      */
+    case READY_TO_DROP :
+      /*
+      * If communication from radio says to change state to safe then change state
+      */    
     osDelay(1);
   }
   /* USER CODE END 5 */
 }
+
+
+
 
 /* USER CODE BEGIN Header_altitude */
 /**
@@ -674,19 +722,19 @@ void altitude(void *argument)
 {
   /* USER CODE BEGIN altitude */
 	/*
-	 * 1: get pressure
-	 * 2: subtract ground pressure
-	 * 3: convert to altitude
-	 * 4:
+	 * 1: Update the current altitude value
 	 */
   /* Infinite loop */
   for(;;)
   {
     Update_Alt_DES();
-    //osDelay(1);
+    osDelay(1);
   }
   /* USER CODE END altitude */
 }
+
+
+
 
 /* USER CODE BEGIN Header_atttitudePD */
 /**
@@ -698,13 +746,21 @@ void altitude(void *argument)
 void atttitudePD(void *argument)
 {
   /* USER CODE BEGIN atttitudePD */
-  /* Infinite loop */
+  /* Infinite loop 
+  * TODO : Need some way of converting the rotation rate to current orientation. 
+  * TODO : Convert the current orientation into Euler angles.
+  * TODO : How can we record the time since the last orientation update and all the rates inbetween?
+  */
   for(;;)
   {
+    Update_Att_DES();
     osDelay(1);
   }
   /* USER CODE END atttitudePD */
 }
+
+
+
 
 /* USER CODE BEGIN Header_recordTransmit */
 /**
@@ -716,13 +772,19 @@ void atttitudePD(void *argument)
 void recordTransmit(void *argument)
 {
   /* USER CODE BEGIN recordTransmit */
-  /* Infinite loop */
+  /** TODO
+   * Collect the current orientation/acceleration/speed/altitude/current state infomration and send via radio to the ground
+   * Record the instruction to drop? Trigger something else which switches the state?
+   * */
   for(;;)
   {
     osDelay(1);
   }
   /* USER CODE END recordTransmit */
 }
+
+
+
 
 /* USER CODE BEGIN Header_attitude */
 /**
@@ -743,6 +805,9 @@ void attitude(void *argument)
   /* USER CODE END attitude */
 }
 
+
+
+
 /* USER CODE BEGIN Header_ignitionTask */
 /**
 * @brief Function implementing the igntionCTask thread.
@@ -760,6 +825,9 @@ void ignitionTask(void *argument)
   }
   /* USER CODE END ignitionTask */
 }
+
+
+
 
 /* USER CODE BEGIN Header_control */
 /**
@@ -779,14 +847,16 @@ void control(void *argument)
   /* USER CODE END control */
 }
 
- /**
-  * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM1 interrupt took place, inside
-  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
+
+
+/**
+* @brief  Period elapsed callback in non blocking mode
+* @note   This function is called  when TIM1 interrupt took place, inside
+* HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+* a global variable "uwTick" used as application time base.
+* @param  htim : TIM handle
+* @retval None
+*/
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
@@ -799,6 +869,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
   /* USER CODE END Callback 1 */
 }
+
+
+
 
 /**
   * @brief  This function is executed in case of error occurrence.

@@ -23,14 +23,14 @@
 /* ------------------------------------------------------------------------------*/
 
 LPS22HH_Object_t *pPressObj;  // Create instance of the LPS22HH_Object_t object TODO
-LPS22HH_IO_t *pPressIO;		  //IO object used in populating pPressOBj
+LPS22HH_IO_t *pPressIO;		  // IO object used in populating pPressOBj
 
 
 const uint8_t Watermark = 2;					// Number of data pieces in FIFO before int triggered
 const float Odr = 200;							// Output data rate
 const uint8_t FIFO_Mode = LPS22HH_STREAM_MODE;  // LPS22HH_STREAM_MODE, continuous
 float Pressure_Ground_loc;  					// Decalre ground pressure value
-float currentAlt;								// The altitude as estimated using double exponential smoothing (externally visible)
+extern float currentAlt;						// The altitude as estimated using double exponential smoothing (externally visible)
 
 
 
