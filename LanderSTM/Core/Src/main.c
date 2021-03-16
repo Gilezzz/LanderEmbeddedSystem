@@ -14,6 +14,22 @@
   * the License. You may obtain a copy of the License at:
   *                             www.st.com/SLA0044
   *
+  * 
+  *    switch(my_State){
+  *      case SAFE :
+  *        // Wait for instruction from radio communication to change to READY_TO_FLY
+  *      case READY_TO_FLY :
+  *        /*
+  *        * If the current altitude is greater than the drop altitude change state to READY_TO_DROP
+  **        * If communication from radio says to change state to safe then change state
+  *        * osStatus_t osThreadSuspend	(	osThreadId_t 	thread_id	) - suspend if needed.
+  *        *
+  *      case READY_TO_DROP :
+  *        /*
+  *        * If communication from radio says to change state to safe then change state
+  *        *    
+        osDelay(1);
+      }  
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -265,7 +281,6 @@ int main(void)
   /* Initialise the sensors*/
   Initialise_Press();
   Initialise_Attitude();
-
 
   /* Start scheduler */
   osKernelStart();
@@ -692,22 +707,7 @@ void stateUpdate(void *argument)
 {
 /* USER CODE BEGIN 5 */
 /* Infinite loop */
-  switch(my_State){
-    case SAFE :
-      // Wait for instruction from radio communication to change to READY_TO_FLY
 
-    case READY_TO_FLY :
-      /*
-      * If the current altitude is greater than the drop altitude change state to READY_TO_DROP
-      * If communication from radio says to change state to safe then change state
-      * osStatus_t osThreadSuspend	(	osThreadId_t 	thread_id	) - suspend if needed.
-      */
-    case READY_TO_DROP :
-      /*
-      * If communication from radio says to change state to safe then change state
-      */    
-    osDelay(1);
-  }
   /* USER CODE END 5 */
 }
 

@@ -4,7 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/Core/Inc"
+                "${workspaceFolder}/Core/Inc",
+                "D:/minGW/include",
+                "D:/minGW/lib/gcc/mingw32/8.2.0/include"
             ],
             "defines": [
                 "_DEBUG",
@@ -14,7 +16,7 @@
             "cStandard": "gnu17",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64",
-            "compilerPath": "C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin/gcc.exe"
+            "compilerPath": "D:/mingw/mingw64/bin/gcc.exe"
         }
     ],
     "version": 4
