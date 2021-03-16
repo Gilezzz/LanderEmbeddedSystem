@@ -18,7 +18,7 @@
   */
 /* USER CODE END Header */
 
-
+xbee
 /* USER CODE BEGIN Includes */
 /* ---------------------------------------------------------------------------*/
 /* --------------------- Private Includes ------------------------------------*/
@@ -30,9 +30,12 @@
 /* USER CODE END Includes */
 
 
+
 /* USER CODE BEGIN PTD */
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE END PTD */
+
+
 
 /* USER CODE BEGIN PD */
 /* ---------------------------------------------------------------------------*/
@@ -698,6 +701,7 @@ void stateUpdate(void *argument)
       /*
       * If the current altitude is greater than the drop altitude change state to READY_TO_DROP
       * If communication from radio says to change state to safe then change state
+      * osStatus_t osThreadSuspend	(	osThreadId_t 	thread_id	) - suspend if needed.
       */
     case READY_TO_DROP :
       /*
