@@ -1,7 +1,7 @@
 #MicroXplorer Configuration settings - do not modify
 FREERTOS.FootprintOK=true
 FREERTOS.IPParameters=Tasks01,FootprintOK
-FREERTOS.Tasks01=stateUDTask,25,128,stateUpdate,Default,NULL,Dynamic,NULL,NULL;altitudeTask,51,128,altitude,Default,NULL,Dynamic,NULL,NULL;attitudePDTask,52,128,atttitudePD,Default,NULL,Dynamic,NULL,NULL;recordTransTask,9,128,recordTransmit,Default,NULL,Dynamic,NULL,NULL;attitudeTask,52,128,attitude,Default,NULL,Dynamic,NULL,NULL;igntionCTask,50,128,ignitionTask,Default,NULL,Dynamic,NULL,NULL;controlTask,49,128,control,Default,NULL,Dynamic,NULL,NULL
+FREERTOS.Tasks01=defaultTask,8,128,defaultFunc,Default,NULL,Dynamic,NULL,NULL;altitudeTask,51,128,altitude,Default,NULL,Dynamic,NULL,NULL;attitudePDTask,52,128,attitudePD,Default,NULL,Dynamic,NULL,NULL;recordTransTask,9,128,recordTransmit,Default,NULL,Dynamic,NULL,NULL;attitudeTask,52,128,attitude,Default,NULL,Dynamic,NULL,NULL;igntionCTask,50,128,ignitionTask,Default,NULL,Dynamic,NULL,NULL;controlTask,49,128,control,Default,NULL,Dynamic,NULL,NULL
 File.Version=6
 GPIO.groupedBy=Group By Peripherals
 KeepUserPlacement=false
