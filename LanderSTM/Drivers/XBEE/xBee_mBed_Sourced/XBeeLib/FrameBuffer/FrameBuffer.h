@@ -14,7 +14,7 @@
 #define __FRAME_BUFFER_H_
 
 #include "config.h"
-#include "mbed.h"
+//#include "mbed.h"
 #include "Frames/ApiFrame.h"
 
 #if FRAME_BUFFER_SIZE > 255
