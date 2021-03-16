@@ -50,11 +50,12 @@ static int32_t press_device_read(void *handle, uint8_t reg, uint8_t* pData, uint
 	/* Args example (ctx->handle, reg, data, len)	*/
 
 	reg = reg|0x40;			// setting read bit 8
+	// start mutex TODO, mutex acquire/release
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
 	BSP_SPI1_Send(&reg, 1);
 	BSP_SPI1_Recv(&pData, len);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
-
+	// end mutex
 	return 0;
 }
 //TODO ideally swap to interrupt mode, would need to replace custom_bus.c as modifications will be overwritten if reconfigd
@@ -70,11 +71,13 @@ static int32_t press_device_read(void *handle, uint8_t reg, uint8_t* pData, uint
  */
 static int32_t press_device_write(void *handle, uint8_t reg, uint8_t* pData, uint16_t len)	{
 	/* Args example (ctx->handle, reg, data, len)	*/
+
+	// Start mutex TODO
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
 	BSP_SPI1_Send(&reg, 1);
 	BSP_SPI1_Send(pData, len);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
-
+	// end mutex
 	return 0;
 }
 

@@ -18,13 +18,12 @@
   */
 /* USER CODE END Header */
 
-xbee
+#include "main.h"
+#include "cmsis_os.h"
 /* USER CODE BEGIN Includes */
 /* ---------------------------------------------------------------------------*/
 /* --------------------- Private Includes ------------------------------------*/
 /* ---------------------------------------------------------------------------*/
-#include "main.h"
-#include "cmsis_os.h"
 #include "Pressure_Retrieve.h"
 #include "Attitude_Retrieve.h"
 /* USER CODE END Includes */
