@@ -46,10 +46,12 @@
 #include "Attitude_Retrieve.h"
 /* USER CODE END Includes */
 
+
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE END PTD */
+
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
@@ -69,10 +71,14 @@ enum State my_State = SAFE;  // Initialise the state of the lander.
 /* ---------------------------------------------------------------------------*/
 /* USER CODE END PD */
 
+
+
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE END PM */
+
+
 
 /* Private variables ---------------------------------------------------------*/
 CRC_HandleTypeDef hcrc;
@@ -204,6 +210,8 @@ const osThreadAttr_t controlTask_attributes = {
 /* ---------------------------------------------------------------------------*/
 /* USER CODE END PV */
 
+
+
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -221,6 +229,8 @@ void recordTransmit(void *argument);
 void attitude(void *argument);
 void ignitionTask(void *argument);
 void control(void *argument);
+
+
 
 /* USER CODE BEGIN PFP */
 /* ---------------------------------------------------------------------------*/
@@ -393,7 +403,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -894,7 +903,8 @@ void ignitionTask(void *argument)
   /* USER CODE BEGIN ignitionTask */
   /* Infinite loop */
   for(;;)
-  {
+  { 
+    // Write high to the MOSFET pin and 5 seconds later write low again.
     osDelay(1);
   }
   /* USER CODE END ignitionTask */

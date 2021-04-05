@@ -135,7 +135,7 @@ float Calc_Altitude(void)	{
 	LPS22HH_FIFO_Get_Data(pPressObj,  pPressure_loc, ptemp);
 
 	/* By using the value of pressure recorded during the initiali(se function we can calulate the current altutude */
-	return (Pressure_Ground_loc - *pPressure_loc)/(1.225*9.81);  // TODO: use temp to calculate density
+	return (Pressure_Ground_loc - *pPressure_loc)/(1.225*9.81);  // TODO: use temp to calculate density, not necessary
 }
 
 
