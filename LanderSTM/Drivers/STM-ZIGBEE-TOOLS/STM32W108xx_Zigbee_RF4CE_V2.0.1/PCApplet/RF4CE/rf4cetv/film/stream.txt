@@ -1,0 +1,26 @@
+[channels]
+Number = 12
+[channel_1]
+File = ".\film\stm32w_v15a.avi"
+[channel_2]
+File = ".\film\stm8discovery.avi"
+[channel_3]
+File = ".\film\photovolt.avi"
+[channel_4]
+File = ".\film\mems.avi"
+[channel_5]
+File = ".\film\dualinterface-rftechnology.avi"
+[channel_6]
+File = ".\film\ceo2009.avi"
+[channel_7]
+File = ".\film\stm32w_v15a.avi"
+[channel_8]
+File = ".\film\stm8discovery.avi"
+[channel_9]
+File = ".\film\photovolt.avi"
+[channel_10]
+File = ".\film\mems.avi"
+[channel_11]
+File = ".\film\dualinterface-rftechnology.avi"
+[channel_12]
+File = ".\film\ceo2009.avi"
